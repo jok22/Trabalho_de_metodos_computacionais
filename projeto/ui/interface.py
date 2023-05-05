@@ -316,7 +316,10 @@ class Interface:
         except Exception as e:
           print(f"ERROR: {str(e)}")
       if var == 4:
-        print(self.enrollment.get_enrollments_info())
+        foo = self.enrollment.get_enrollments_info()
+        print(self.enrollment.read_columns())
+        for tupla in foo:
+            print(tupla)
       if var == 5:
         enrollment_id = input("DIGITE O ID DA MATRICULA: \n")
         class_id = input("CASO NÃO QUEIRA MUDAR, APENAS CONFIRME\nDIGITE O NOVO ID DA TURMA: \n")

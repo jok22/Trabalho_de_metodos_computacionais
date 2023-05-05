@@ -417,3 +417,20 @@ class EnrollmentRepository(Database):
             """)
             enrollments_info = cursor.fetchall()
             return enrollments_info
+
+    def read_columns(self) -> list:
+        """Returns a list of strings representing the names of the columns in the enrollment information.
+        Returns:
+            list: A list of strings representing the names of the columns in the enrollment information.
+        """
+        with self as cursor:
+            cursor.execute("""
+                SELECT enrollments.enrollment_id, student.student_id, student.name, class.class_id, class.class_name, class.start_time, class.end_time, teacher.teacher_id, teacher.name
+                FROM enrollments 
+                JOIN student ON enrollments.student_id = student.student_id 
+                JOIN class ON enrollments.class_id = class.class_id 
+                JOIN teacher ON enrollments.teacher_id = teacher.teacher_id
+                LIMIT 0;
+            """)
+            column_names = [description[0] for description in cursor.description]
+            return column_names
